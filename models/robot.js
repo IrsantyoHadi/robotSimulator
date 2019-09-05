@@ -51,28 +51,28 @@ module.exports = class Robot {
   move() {
     switch (this.F) {
       case 'NORTH':
-        if (this.X + 1 > 4) {
+        if (this.Y + 1 > 4) {
           return
         }
-        this.X++
+        this.Y++
         break;
       case 'SOUTH':
-        if (this.X - 1 < 0) {
-          return
-        }
-        this.X--
-        break;
-      case 'WEST':
         if (this.Y - 1 < 0) {
           return
         }
         this.Y--
         break;
-      case 'EAST':
-        if (this.Y + 1 > 4) {
+      case 'WEST':
+        if (this.X - 1 < 0) {
           return
         }
-        this.Y++
+        this.X--
+        break;
+      case 'EAST':
+        if (this.X + 1 > 4) {
+          return
+        }
+        this.X++
         break;
       default:
         break;
