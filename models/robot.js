@@ -1,8 +1,8 @@
 module.exports = class Robot {
   constructor(X, Y, F) {
     this.X = X,
-      this.Y = Y,
-      this.F = F
+    this.Y = Y,
+    this.F = F
   }
 
   place(X, Y, F) {
@@ -39,12 +39,14 @@ module.exports = class Robot {
       let currentDirection = possibleDirection.indexOf(this.F)
       currentDirection++
       this.F = possibleDirection[currentDirection]
+      return
     }
     else if (direction === 'LEFT') {
       const possibleDirection = ['NORTH', 'WEST', 'SOUTH', 'EAST', 'NORTH']
       let currentDirection = possibleDirection.indexOf(this.F)
       currentDirection++
       this.F = possibleDirection[currentDirection]
+      return
     }
   }
 
