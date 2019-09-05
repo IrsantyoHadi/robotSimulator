@@ -5,11 +5,11 @@ const Controller = require('./controllers/robotController')
 const fs = require('fs');
 var newRobot
 let input = fs.readFileSync('./input.csv', 'utf8', null).split('\n')
-const validCommands = /LEFT|RIGHT|MOVE|REPORT/
+const validCommands = /LEFT|RIGHT|MOVE|REPORT|PLACE/
 
 if (input) {
   newRobot = Controller.place(input[0].split(' ')[1])
-  input.slice(1).forEach(el => {
+  input.slice(1).forEach((el, i) => {
     if (validCommands.test(el)) {
       switch (el) {
         case 'LEFT':
@@ -23,6 +23,10 @@ if (input) {
           break;
         case 'REPORT':
           Controller.report(newRobot)
+          break;
+        case 'PLACE':
+          i++
+          newRobot = Controller.place(el)
           break;
         default:
           break;
@@ -40,7 +44,7 @@ if (input) {
     newRobot = Controller.place(args[0])
   }
 
-  args.slice(1).forEach(el => {
+  args.slice(1).forEach((el, i) => {
     if (validCommands.test(el)) {
       switch (el) {
         case 'LEFT':
@@ -54,6 +58,10 @@ if (input) {
           break;
         case 'REPORT':
           Controller.report(newRobot)
+          break;
+        case 'PLACE':
+          i++
+          newRobot = Controller.place(el)
           break;
         default:
           break;
