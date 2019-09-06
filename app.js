@@ -7,11 +7,11 @@ var newRobot
 let input = fs.readFileSync('./input.csv', 'utf8', null).split('\n')
 const validCommands = /LEFT|RIGHT|MOVE|REPORT|PLACE/
 
-if (input) {
+if (input[0] !== '') {
   newRobot = Controller.place(input[0].split(' ')[1])
-  input.slice(1).forEach((el, i) => {
+  input.slice(1).forEach((el) => {
     if (validCommands.test(el)) {
-      switch (el) {
+      switch (el.split(' ')[0]) {
         case 'LEFT':
           newRobot = Controller.turn(newRobot, 'LEFT')
           break;
@@ -25,8 +25,7 @@ if (input) {
           Controller.report(newRobot)
           break;
         case 'PLACE':
-          i++
-          newRobot = Controller.place(el)
+          newRobot = Controller.place(el.split(' ')[1])
           break;
         default:
           break;
@@ -44,9 +43,10 @@ if (input) {
     newRobot = Controller.place(args[0])
   }
 
-  args.slice(1).forEach((el, i) => {
-    if (validCommands.test(el)) {
-      switch (el) {
+  for(let i = 0 ; i < args.slice(1).length ; i++){
+    let input = args.slice(1)
+    if (validCommands.test(input[i])) {
+      switch (input[i]) {
         case 'LEFT':
           newRobot = Controller.turn(newRobot, 'LEFT')
           break;
@@ -60,15 +60,15 @@ if (input) {
           Controller.report(newRobot)
           break;
         case 'PLACE':
+          newRobot = Controller.place(input[i+1])
           i++
-          newRobot = Controller.place(el)
           break;
         default:
           break;
       }
     } else {
-      console.error(`Command ${el} is not found, available commands: |MOVE|LEFT|RIGHT|REPORT|PLACE`);
+      console.error(`Command ${input[i]} is not found, available commands: |MOVE|LEFT|RIGHT|REPORT|PLACE`);
     }
-  })
+  }
 }
 
